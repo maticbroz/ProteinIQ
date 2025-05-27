@@ -21,3 +21,11 @@
     "@eslint/eslintrc": "^3"
   }
 }
+
+
+{
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  }
+}
