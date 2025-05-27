@@ -28,16 +28,16 @@ export default function FastqToFasta() {
         // Validate FASTQ format
         if (!header.startsWith('@')) {
           throw new Error(
-            `Invalid FASTQ format: Header at line ${i + 1} should start with '@'`
+            `Invalid FASTQ format: Header at line ${i + 1} should start with &apos;@&apos;`
           );
         }
-        if (!plus.startsWith('+')) {
+        if (!plus.startsWith('+')) {    
           throw new Error(
-            `Invalid FASTQ format: Plus line at line ${i + 3} should start with '+'`
+            `Invalid FASTQ format: Plus line at line ${i + 3} should start with &apos;+&apos;`
           );
         }
 
-        // Convert @ to > for FASTA header
+    
         const fastaHeader = '>' + header.substring(1);
         fastaLines.push(fastaHeader);
         fastaLines.push(sequence);
@@ -122,7 +122,7 @@ export default function FastqToFasta() {
     ) {
       handleFileUpload(file);
     } else {
-      setError('Please upload a valid FASTQ file (.fastq, .fq, or .txt)');
+      setError(`Please upload a valid FASTQ file (.fastq, .fq, or .txt)`);
     }
   };
 
@@ -139,7 +139,7 @@ export default function FastqToFasta() {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(output).then(() => {
       // You could add a toast notification here
-      alert('Copied to clipboard!');
+      alert(`Copied to clipboard!`);
     });
   };
 
@@ -295,7 +295,7 @@ export default function FastqToFasta() {
               {isProcessing && (
                 <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                   <p className="text-blue-800 text-sm">
-                    Converting to FASTA format...
+                    `Converting to FASTA format...`
                   </p>
                 </div>
               )}
