@@ -5,8 +5,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
-                <a href="/">ProteinIQ</a>
-              
+              <a href="/">ProteinIQ</a>
             </h1>
           </div>
           <div className="hidden md:block">
