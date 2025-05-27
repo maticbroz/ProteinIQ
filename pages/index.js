@@ -11,105 +11,155 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// pages/index.js
 export default function Home() {
   return (
     <div
-      className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
+      className={`${geistSans.className} -grid -grid-rows-[20px_1fr_20px] -items-center -justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]`}
     >
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              pages/index.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Header */}
+      <header className="border-b">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <h1 className="text-2xl font-bold text-gray-900">ProteinIQ</h1>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                <a href="#" className="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                <a href="/tools" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Tools</a>
+                <a href="/blog" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Blog</a>
+                <a href="/about" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            Bioinformatics Tools
+            <span className="block text-blue-600">Made Simple</span>
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            Professional-grade bioinformatics tools for researchers, students, and professionals. 
+            Convert, analyze, and visualize biological data with ease.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="/tools" 
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Explore Tools
+            </a>
+            <a 
+              href="/about" 
+              className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+
+        {/* Featured Tools */}
+        <div className="mt-20">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Featured Tools</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-2xl">🧬</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">FASTA to PDB</h3>
+              <p className="text-gray-600 mb-4">Convert FASTA sequence files to PDB format for structural analysis.</p>
+              <a href="/tools/fasta-to-pdb" className="text-blue-600 font-medium hover:text-blue-700">
+                Try Tool →
+              </a>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-2xl">🔬</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Protein Sequence Analyzer</h3>
+              <p className="text-gray-600 mb-4">Analyze protein sequences for properties, motifs, and characteristics.</p>
+              <a href="/tools/protein-analyzer" className="text-blue-600 font-medium hover:text-blue-700">
+                Try Tool →
+              </a>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-2xl">📊</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Data Visualizer</h3>
+              <p className="text-gray-600 mb-4">Create publication-ready charts and graphs from your biological data.</p>
+              <a href="/tools/visualizer" className="text-blue-600 font-medium hover:text-blue-700">
+                Try Tool →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Coming Soon */}
+        <div className="mt-20 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Coming Soon</h2>
+          <div className="bg-white rounded-lg shadow-md p-8 max-w-2xl mx-auto">
+            <div className="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <span className="text-3xl">🤖</span>
+            </div>
+            <h3 className="text-2xl font-semibold mb-4">AlphaFold API Integration</h3>
+            <p className="text-gray-600 mb-6">
+              Direct integration with AlphaFold database for protein structure prediction and analysis.
+            </p>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-500">
+                Subscribe to get notified when this feature launches
+              </p>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold mb-4">ProteinIQ</h3>
+              <p className="text-gray-400">
+                Making bioinformatics accessible to everyone.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Tools</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="/tools/fasta-to-pdb" className="hover:text-white">FASTA to PDB</a></li>
+                <li><a href="/tools/protein-analyzer" className="hover:text-white">Protein Analyzer</a></li>
+                <li><a href="/tools/visualizer" className="hover:text-white">Data Visualizer</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Resources</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="/blog" className="hover:text-white">Blog</a></li>
+                <li><a href="/help" className="hover:text-white">Help</a></li>
+                <li><a href="/about" className="hover:text-white">About</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Contact</h4>
+              <p className="text-gray-400">
+                Questions? Reach out to us.
+              </p>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 ProteinIQ. All rights reserved.</p>
+          </div>
+        </div>
       </footer>
     </div>
-  );
+  )
 }
