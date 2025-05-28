@@ -4,7 +4,7 @@ export default function Header() {
       <nav className="">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight hover:text-indigo-600">
               <a href="/">ProteinIQ</a>
             </h1>
           </div>

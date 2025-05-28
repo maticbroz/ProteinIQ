@@ -31,13 +31,12 @@ export default function FastqToFasta() {
             `Invalid FASTQ format: Header at line ${i + 1} should start with &apos;@&apos;`
           );
         }
-        if (!plus.startsWith('+')) {    
+        if (!plus.startsWith('+')) {
           throw new Error(
             `Invalid FASTQ format: Plus line at line ${i + 3} should start with &apos;+&apos;`
           );
         }
 
-    
         const fastaHeader = '>' + header.substring(1);
         fastaLines.push(fastaHeader);
         fastaLines.push(sequence);
