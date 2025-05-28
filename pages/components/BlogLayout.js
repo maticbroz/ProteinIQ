@@ -1,3 +1,4 @@
+// Option 1: Using Next.js Image with explicit width/height (Recommended)
 import Head from 'next/head';
 import Header from './Header';
 import Footer from './Footer';
@@ -54,7 +55,7 @@ export default function BlogLayout({
                     </h2>
                   )}
 
-                  <div className="flex justify-between space-x-4 text-sm text-gray-500 mb-4">
+                  <div className="flex justify-between space-x-4 text-sm text-gray-500 mb-8">
                     <span className="font-medium text-gray-700">{author}</span>
                     {publishedDate && (
                       <>
@@ -64,13 +65,20 @@ export default function BlogLayout({
                   </div>
 
                   {featuredImage && (
-                    <div className="relative w-full h-64 md:h-106 rounded-lg overflow-hidden">
+                    <div className="w-full mb-8">
+                      {/* Option 1: Responsive Image with explicit dimensions */}
                       <Image
                         src={featuredImage}
                         alt={title}
-                        fill
-                        className="object-cover"
+                        width={896}
+                        height={504}
+                        className="w-full h-auto rounded-lg object-cover"
                         priority
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 896px"
+                        style={{
+                          maxWidth: '100%',
+                          height: 'auto',
+                        }}
                       />
                     </div>
                   )}
@@ -78,12 +86,12 @@ export default function BlogLayout({
               </div>
 
               {/* Article Content */}
-              <div className="px-6 pt-12">
+              <div className="px-6 pt-8">
                 <div className="prose prose-lg max-w-[640px]">{children}</div>
               </div>
 
               {/* Article Footer */}
-              <div className="px-6 py-8 border-t border-gray-200 bg-gray-50">
+              <div className="px-6 py-8 border-t border-gray-200 bg-gray-50 mt-12">
                 <div className="flex justify-between items-center">
                   <div className="text-sm text-gray-600">
                     <p>
@@ -149,3 +157,47 @@ export default function BlogLayout({
     </div>
   );
 }
+
+// Option 2: Using picture element with multiple sources (Alternative)
+/*
+{featuredImage && (
+  <div className="w-full mb-8">
+    <picture>
+      <source
+        media="(max-width: 640px)"
+        srcSet="/images/blog/tasser-alphafold-mobile.webp"
+      />
+      <source
+        media="(max-width: 1024px)"
+        srcSet="/images/blog/tasser-alphafold-tablet.webp"
+      />
+      <img
+        src={featuredImage}
+        alt={title}
+        className="w-full h-auto rounded-lg object-cover"
+        loading="eager"
+        style={{
+          aspectRatio: '16/9',
+          maxWidth: '100%',
+        }}
+      />
+    </picture>
+  </div>
+)}
+*/
+
+// Option 3: CSS-based responsive approach (Fallback)
+/*
+{featuredImage && (
+  <div 
+    className="w-full mb-8 rounded-lg overflow-hidden bg-cover bg-center bg-no-repeat"
+    style={{
+      backgroundImage: `url(${featuredImage})`,
+      aspectRatio: '16/9',
+      minHeight: '200px',
+    }}
+    role="img"
+    aria-label={title}
+  />
+)}
+*/
