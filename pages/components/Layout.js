@@ -1,17 +1,27 @@
-// components/Layout.js
 import Head from 'next/head';
 import Header from './Header';
 import Footer from './Footer';
 
-export default function Layout({ children, title = 'ProteinIQ' }) {
+export default function Layout({ 
+  children, 
+  title = 'ProteinIQ - Bioinformatics Tools for Researchers',
+  description = 'Free bioinformatics tools for researchers. Convert FASTQ to FASTA, analyze protein sequences, and more. Browser-based tools with no installation required.'
+}) {
   return (
-    // Apply inter.className to your root layout element.
-    // This will set the font-family for all children to var(--font-inter)
-    // and handle all font loading and fallback logic.
-    <div className={`px-3 md:pl-8 md:pr-4`}>
+    <div className="px-3 md:pl-8 md:pr-4">
       <Head>
         <title>{title}</title>
-        <meta name="description" content="Bioinformatics tools" />
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://proteiniq.com" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        {/* Add canonical URL */}
+        <link rel="canonical" href="https://proteiniq.com" />
       </Head>
 
       <div className="min-h-screen flex flex-col">

@@ -1,0 +1,10 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://proteiniq.com/sitemap.xml
+
+# Optional: Block any admin or private areas (if you have any)
+# Disallow: /admin/
+# Disallow: /api/

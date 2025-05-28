@@ -170,7 +170,8 @@ export default function FastqToFasta({ mdxSource, frontMatter }) {
 
   return (
     <ToolsLayout
-      title="FASTQ to FASTA converter - ProteinIQ"
+      title="FASTQ to FASTA Converter - Free Online Tool | ProteinIQ"
+      description="Convert FASTQ sequence files to FASTA format instantly. Free browser-based tool with drag & drop upload, no installation required. Perfect for bioinformatics research."
       h1="FASTQ to FASTA converter"
       subtitle="Convert your FASTQ sequence files to FASTA format. Upload a file or paste your FASTQ data below."
     >
