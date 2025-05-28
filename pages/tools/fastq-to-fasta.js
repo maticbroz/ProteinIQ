@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import Layout from '../components/Layout';
+import ToolsLayout from '../components/tools/ToolsLayout';
+import OutputSection from '../components/tools/OutputSection';
 
 export default function FastqToFasta() {
   const [input, setInput] = useState('');
@@ -28,12 +29,12 @@ export default function FastqToFasta() {
         // Validate FASTQ format
         if (!header.startsWith('@')) {
           throw new Error(
-            `Invalid FASTQ format: Header at line ${i + 1} should start with &apos;@&apos;`
+            `Invalid FASTQ format: Header at line ${i + 1} should start with '@'`
           );
         }
         if (!plus.startsWith('+')) {
           throw new Error(
-            `Invalid FASTQ format: Plus line at line ${i + 3} should start with &apos;+&apos;`
+            `Invalid FASTQ format: Plus line at line ${i + 3} should start with '+'`
           );
         }
 
@@ -163,8 +164,8 @@ export default function FastqToFasta() {
   };
 
   return (
-    <Layout title="FASTQ to FASTA converter - ProteinIQ">
-      <div className="pb-12 pt-24">
+    <ToolsLayout title="FASTQ to FASTA converter - ProteinIQ">
+      <div className="pb-12 pt-24 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -182,10 +183,10 @@ export default function FastqToFasta() {
               <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Input (FASTQ Format)
               </label>
-              <div class="flex flex-row gap-6">
+              <div className="flex flex-col lg:flex-row gap-6">
                 {/* File Upload Area */}
                 <div
-                  className={`border-2 border-dashed rounded-lg p-4 text-center transition-colors relative grow-1 shrink-3 ${
+                  className={`border-2 border-dashed rounded-lg p-4 text-center transition-colors relative lg:w-1/3 ${
                     isDragOver
                       ? 'border-blue-500 bg-blue-50'
                       : 'border-gray-300 hover:border-gray-400'
@@ -270,7 +271,7 @@ export default function FastqToFasta() {
                 </div>
 
                 {/* Text Area */}
-                <div className="grow-3 shrink-0">
+                <div className="lg:w-2/3">
                   <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -294,7 +295,7 @@ export default function FastqToFasta() {
               {isProcessing && (
                 <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                   <p className="text-blue-800 text-sm">
-                    `Converting to FASTA format...`
+                    Converting to FASTA format...
                   </p>
                 </div>
               )}
@@ -308,51 +309,14 @@ export default function FastqToFasta() {
             </div>
 
             {/* Output Section */}
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
-                  Output (FASTA Format)
-                </label>
-
-                <div class="w-full border border-gray-300 rounded-lg bg-gray-50 font-mono text-sm">
-                <textarea
-                  value={output}
-                  readOnly
-                  placeholder="FASTA output will appear here automatically..."
-                  className="p-4 w-full h-86"
-                />
-                
-
-           {/* Output Controls - Icon Only Buttons */}
-              
-                <div className="flex place-center justify-between border-t bg-gray-100 border-gray-200">
-                  <div>
-                  <button
-                    onClick={copyToClipboard}
-                    title="Copy to Clipboard"
-                    className="p-2 aspect-square inline-flex place-center text-gray-700 hover:bg-gray-200 rounded-full"
-                  >
-                    {/* Copy Icon - Replace with your SVG */}
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="h-5 w-5" fill="currentColor"><path d="M360-240q-29.7 0-50.85-21.15Q288-282.3 288-312v-480q0-29.7 21.15-50.85Q330.3-864 360-864h384q29.7 0 50.85 21.15Q816-821.7 816-792v480q0 29.7-21.15 50.85Q773.7-240 744-240H360Zm0-72h384v-480H360v480ZM216-96q-29.7 0-50.85-21.15Q144-138.3 144-168v-552h72v552h456v72H216Zm144-216v-480 480Z"/></svg>
-  
-                  </button>
-                  <button
-                    onClick={downloadFile}
-                    title="Download File"
-                    className="p-2 aspect-square inline-flex place-center text-gray-700 hover:bg-gray-200 rounded-full"
-                  >
-                    {/* Download Icon - Replace with your SVG */}
- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="h-5 w-5" fill="currentColor"><path d="M480-336 288-528l51-51 105 105v-342h72v342l105-105 51 51-192 192ZM263.72-192Q234-192 213-213.15T192-264v-72h72v72h432v-72h72v72q0 29.7-21.16 50.85Q725.68-192 695.96-192H263.72Z"/></svg>
-                  </button>
-                  </div>
-                  <span class="text-gray-600 p-2">Fasta</span>
-                </div>
-              
-</div>
-              </div>
-
-   
-            </div>
+            <OutputSection
+              output={output}
+              outputFormat="FASTA"
+              placeholder="FASTA output will appear here automatically..."
+              onCopy={copyToClipboard}
+              onDownload={downloadFile}
+              downloadFilename="converted.fasta"
+            />
           </div>
 
           <section className="prose">
@@ -701,6 +665,6 @@ parallel_conversion(input_files, "./output", num_processes=8)`}</code>
           </section>
         </div>
       </div>
-    </Layout>
+    </ToolsLayout>
   );
 }

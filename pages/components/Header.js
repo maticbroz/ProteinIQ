@@ -5,7 +5,9 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <h1 className="text-2xl font-bold text-slate-900 tracking-tight hover:text-indigo-600">
-              <a href="/">ProteinIQ</a>
+              <a href="/">
+                Protein<span class="text-indigo-600">IQ</span>
+              </a>
             </h1>
           </div>
           <div className="hidden md:block">

@@ -1,4 +1,4 @@
-import Layout from '../components/Layout';
+import ToolsLayout from '../components/tools/ToolsLayout';
 import Link from 'next/link';
 
 export default function ToolsIndex() {
@@ -58,7 +58,7 @@ export default function ToolsIndex() {
   ];
 
   return (
-    <Layout title="Bioinformatics Tools - ProteinIQ">
+    <ToolsLayout title="Bioinformatics Tools - ProteinIQ">
       <div className="py-12">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
@@ -74,35 +74,32 @@ export default function ToolsIndex() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
             {tools.map((tool, index) => (
-                           <Link
-                    href={tool.href}
-                    className=""
-                  >
-              <div
-                key={index}
-                className={`transition-all duration-200 ${
-                  tool.status === 'available'
-                    ? 'border-gray-200 hover:border-blue-300 hover:shadow-lg cursor-pointer'
-                    : 'border-gray-100 opacity-75'
-                }`}
-              >
-                <div className="flex flex-row gap-4 items-start justify-between mb-4">
-                  <div className="bg-gradient-to-bl from-white/50 to-gray-50 text-2xl -bg-gray-100 p-2 aspect-square border rounded-lg border-gray-200 leading-0 flex items-center">{tool.icon}</div>
+              <Link href={tool.href} className="">
+                <div
+                  key={index}
+                  className={`transition-all duration-200 ${
+                    tool.status === 'available'
+                      ? 'border-gray-200 hover:border-blue-300 hover:shadow-lg cursor-pointer'
+                      : 'border-gray-100 opacity-75'
+                  }`}
+                >
+                  <div className="flex flex-row gap-4 items-start justify-between mb-4">
+                    <div className="bg-gradient-to-bl from-white/50 to-gray-50 text-2xl -bg-gray-100 p-2 aspect-square border rounded-lg border-gray-200 leading-0 flex items-center">
+                      {tool.icon}
+                    </div>
 
-                  <div>
-                    <h3 className="text-md font-medium text-gray-900">
-                      {tool.title}
-                    </h3>
+                    <div>
+                      <h3 className="text-md font-medium text-gray-900">
+                        {tool.title}
+                      </h3>
 
-                    <p className="text-gray-600 leading-relaxed text-">
-                      {tool.description}
-                    </p>
+                      <p className="text-gray-600 leading-relaxed text-">
+                        {tool.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-</Link>
-
-
+              </Link>
             ))}
           </div>
 
@@ -193,6 +190,6 @@ export default function ToolsIndex() {
           </div>
         </div>
       </div>
-    </Layout>
+    </ToolsLayout>
   );
 }
