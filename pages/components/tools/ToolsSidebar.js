@@ -44,8 +44,8 @@ export default function ToolsSidebar() {
   const currentPath = router.asPath;
 
   return (
-    <div className="w-64 h-full pr-3">
-      <div className="py-6">
+    <div className=" w-64 h-full pr-3">
+      <div className="py-6 sticky top-0">
         <h2 className="text-sm uppercase tracking-wider font-bold text-gray-800 mb-6">
           Converters
         </h2>

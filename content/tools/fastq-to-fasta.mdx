@@ -100,7 +100,6 @@ awk 'NR%4==1{print ">" substr($0,2)} NR%4==2{print}' input.fastq > output.fasta
 sed -n '1~4s/^@/>/p;2~4p' input.fastq > output.fasta
 ```
 
-
 ## Common use cases
 
 FASTQ to FASTA conversion is essential for many bioinformatics workflows:

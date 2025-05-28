@@ -1,8 +1,6 @@
 @import 'tailwindcss';
 @import 'highlight.js/styles/github.css';
 
-
-
 @font-face {
   font-family: 'Geist';
   src: url('/fonts/Geist.woff2') format('woff2');
@@ -22,10 +20,10 @@
 :root {
   --background: #f5f5f5;
   --foreground: #171717;
-  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+  --font-sans:
+    'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-mono:
-    'Geist Mono', ui-monospace, monospace;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
   --divider: var(--color-gray-100);
 }
 
@@ -124,7 +122,8 @@ body {
   }
 }
 
-code, code.hljs {
+code,
+code.hljs {
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -142,7 +141,7 @@ code, code.hljs {
 p > code,
 li > code {
   display: inline-flex;
-  padding: 0 .3em;
-  font-size: .9em;
+  padding: 0 0.3em;
+  font-size: 0.9em;
   font-weight: 500;
 }

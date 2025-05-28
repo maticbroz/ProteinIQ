@@ -166,18 +166,11 @@ export default function FastqToFasta({ mdxSource, frontMatter }) {
   };
 
   return (
-    <ToolsLayout title="FASTQ to FASTA converter - ProteinIQ">
-      <div className="pb-12 pt-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              FASTQ to FASTA converter
-            </h1>
-            <p className="text-lg text-gray-600 max-w-xl mx-auto">
-              Convert your FASTQ sequence files to FASTA format. Upload a file
-              or paste your FASTQ data below.
-            </p>
-          </div>
+    <ToolsLayout
+      title="FASTQ to FASTA converter - ProteinIQ"
+      h1="FASTQ to FASTA converter"
+      subtitle="Convert your FASTQ sequence files to FASTA format. Upload a file or paste your FASTQ data below."
+    >
 
           <div className="flex flex-col gap-8">
             {/* Input Section */}
@@ -323,8 +316,7 @@ export default function FastqToFasta({ mdxSource, frontMatter }) {
 
           {/* Documentation */}
           <ToolDocumentation mdxSource={mdxSource} frontMatter={frontMatter} />
-        </div>
-      </div>
+
     </ToolsLayout>
   );
 }
