@@ -6,18 +6,12 @@ export default function Header() {
           <div className="flex items-center">
             <h1 className="text-2xl font-bold text-slate-900 tracking-tight hover:text-indigo-600">
               <a href="/">
-                Protein<span class="text-indigo-600">IQ</span>
+                Protein<span className="text-indigo-600">IQ</span>
               </a>
             </h1>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <a
-                href="#"
-                className="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Home
-              </a>
               <a
                 href="/tools"
                 className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"

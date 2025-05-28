@@ -37,10 +37,8 @@ export default function ToolsLayout({
                 {subtitle}
               </p>
             </header>
-                  <div className="pb-12 px-6">
-        <div className="max-w-4xl mx-auto">
-            {children}
-            </div>
+            <div className="pb-12 px-6">
+              <div className="max-w-4xl mx-auto">{children}</div>
             </div>
           </main>
         </div>
