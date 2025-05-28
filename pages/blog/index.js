@@ -24,10 +24,10 @@ export default function BlogIndex({ posts }) {
             {posts.map((post) => (
               <article
                 key={post.slug}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                className="bg-white border-gray-200 overflow-hidden"
               >
                 {post.featuredImage && (
-                  <div className="aspect-video bg-gray-100 relative overflow-hidden">
+                  <div className="aspect-square bg-gray-100 relative rounded-lg overflow-hidden">
                     <img
                       src={post.featuredImage}
                       alt={post.title}
@@ -36,19 +36,13 @@ export default function BlogIndex({ posts }) {
                   </div>
                 )}
 
-                <div className="p-6">
+                <div className="mt-4">
                   <div className="mb-3">
                     <Link href={`/blog/${post.slug}`}>
-                      <h2 className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors mb-2 line-clamp-2">
+                      <h2 className="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors mb-2">
                         {post.title}
                       </h2>
                     </Link>
-
-                    {post.subtitle && (
-                      <p className="text-gray-600 text-sm mb-3">
-                        {post.subtitle}
-                      </p>
-                    )}
                   </div>
 
                   <div className="flex items-center text-xs text-gray-500 mb-4">
@@ -62,32 +56,6 @@ export default function BlogIndex({ posts }) {
                       </>
                     )}
                   </div>
-
-                  {post.excerpt && (
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                  )}
-
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
-                  >
-                    Read more
-                    <svg
-                      className="w-4 h-4 ml-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </Link>
                 </div>
               </article>
             ))}

@@ -163,14 +163,14 @@ export default function FastqToFasta() {
   };
 
   return (
-    <Layout title="FASTQ to FASTA Converter - ProteinIQ">
-      <div className="py-12">
+    <Layout title="FASTQ to FASTA converter - ProteinIQ">
+      <div className="pb-12 pt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              FASTQ to FASTA Converter
+              FASTQ to FASTA converter
             </h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-xl mx-auto">
               Convert your FASTQ sequence files to FASTA format. Upload a file
               or paste your FASTQ data below.
             </p>
@@ -313,59 +313,45 @@ export default function FastqToFasta() {
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Output (FASTA Format)
                 </label>
+
+                <div class="w-full border border-gray-300 rounded-lg bg-gray-50 font-mono text-sm">
                 <textarea
                   value={output}
                   readOnly
                   placeholder="FASTA output will appear here automatically..."
-                  className="w-full h-64 p-4 border border-gray-300 rounded-lg bg-gray-50 font-mono text-sm"
+                  className="p-4 w-full h-86"
                 />
-              </div>
+                
 
-              {/* Output Controls - Icon Only Buttons */}
-              {output && (
-                <div className="flex gap-3">
+           {/* Output Controls - Icon Only Buttons */}
+              
+                <div className="flex place-center justify-between border-t bg-gray-100 border-gray-200">
+                  <div>
                   <button
                     onClick={copyToClipboard}
                     title="Copy to Clipboard"
-                    className="p-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                    className="p-2 aspect-square inline-flex place-center text-gray-700 hover:bg-gray-200 rounded-full"
                   >
                     {/* Copy Icon - Replace with your SVG */}
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                      />
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="h-5 w-5" fill="currentColor"><path d="M360-240q-29.7 0-50.85-21.15Q288-282.3 288-312v-480q0-29.7 21.15-50.85Q330.3-864 360-864h384q29.7 0 50.85 21.15Q816-821.7 816-792v480q0 29.7-21.15 50.85Q773.7-240 744-240H360Zm0-72h384v-480H360v480ZM216-96q-29.7 0-50.85-21.15Q144-138.3 144-168v-552h72v552h456v72H216Zm144-216v-480 480Z"/></svg>
+  
                   </button>
                   <button
                     onClick={downloadFile}
                     title="Download File"
-                    className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="p-2 aspect-square inline-flex place-center text-gray-700 hover:bg-gray-200 rounded-full"
                   >
                     {/* Download Icon - Replace with your SVG */}
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="h-5 w-5" fill="currentColor"><path d="M480-336 288-528l51-51 105 105v-342h72v342l105-105 51 51-192 192ZM263.72-192Q234-192 213-213.15T192-264v-72h72v72h432v-72h72v72q0 29.7-21.16 50.85Q725.68-192 695.96-192H263.72Z"/></svg>
                   </button>
+                  </div>
+                  <span class="text-gray-600 p-2">Fasta</span>
                 </div>
-              )}
+              
+</div>
+              </div>
+
+   
             </div>
           </div>
 

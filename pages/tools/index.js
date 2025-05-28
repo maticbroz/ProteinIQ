@@ -61,101 +61,48 @@ export default function ToolsIndex() {
     <Layout title="Bioinformatics Tools - ProteinIQ">
       <div className="py-12">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight">
-              Bioinformatics Tools
+          <div className="mb-12">
+            <h1 className="text-3xl font-semibold text-gray-900 mb-4 tracking-tight">
+              Bioinformatics tools
             </h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 mx-auto">
               Powerful, easy-to-use tools for sequence analysis, structure
               prediction, and bioinformatics research. All tools run directly in
               your browser - no installation required.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
             {tools.map((tool, index) => (
+                           <Link
+                    href={tool.href}
+                    className=""
+                  >
               <div
                 key={index}
-                className={`bg-white rounded-xl border-2 p-8 transition-all duration-200 ${
+                className={`transition-all duration-200 ${
                   tool.status === 'available'
                     ? 'border-gray-200 hover:border-blue-300 hover:shadow-lg cursor-pointer'
                     : 'border-gray-100 opacity-75'
                 }`}
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="text-4xl">{tool.icon}</div>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      tool.status === 'available'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-yellow-100 text-yellow-800'
-                    }`}
-                  >
-                    {tool.status === 'available' ? 'Available' : 'Coming Soon'}
-                  </span>
-                </div>
+                <div className="flex flex-row gap-4 items-start justify-between mb-4">
+                  <div className="bg-gradient-to-bl from-white/50 to-gray-50 text-2xl -bg-gray-100 p-2 aspect-square border rounded-lg border-gray-200 leading-0 flex items-center">{tool.icon}</div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  {tool.title}
-                </h3>
+                  <div>
+                    <h3 className="text-md font-medium text-gray-900">
+                      {tool.title}
+                    </h3>
 
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  {tool.description}
-                </p>
-
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-2">
-                    Features:
-                  </h4>
-                  <ul className="space-y-1">
-                    {tool.features.map((feature, featureIndex) => (
-                      <li
-                        key={featureIndex}
-                        className="text-sm text-gray-600 flex items-center"
-                      >
-                        <svg
-                          className="w-4 h-4 text-green-500 mr-2"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {tool.status === 'available' ? (
-                  <Link
-                    href={tool.href}
-                    className="inline-flex items-center justify-center w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-                  >
-                    Open Tool
-                    <svg
-                      className="w-4 h-4 ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </Link>
-                ) : (
-                  <div className="inline-flex items-center justify-center w-full bg-gray-300 text-gray-500 px-6 py-3 rounded-lg font-medium cursor-not-allowed">
-                    Coming Soon
+                    <p className="text-gray-600 leading-relaxed text-">
+                      {tool.description}
+                    </p>
                   </div>
-                )}
+                </div>
               </div>
+</Link>
+
+
             ))}
           </div>
 
