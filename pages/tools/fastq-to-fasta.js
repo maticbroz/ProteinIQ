@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import ToolsLayout from '../components/tools/ToolsLayout';
 import OutputSection from '../components/tools/OutputSection';
 import ToolDocumentation from '../components/tools/ToolDocumentation';
-import { createToolStaticProps } from '../components/utils/loadToolDocumentation';
+import { createToolStaticProps } from '../../lib/loadToolDocumentation';
 
 export default function FastqToFasta({ mdxSource, frontMatter }) {
   const [input, setInput] = useState('');
