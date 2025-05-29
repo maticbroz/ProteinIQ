@@ -74,7 +74,7 @@ export async function getServerSideProps({ res }) {
   // Get blog posts
   const postsDirectory = path.join(process.cwd(), 'content/blog');
   let posts = [];
-  
+
   if (fs.existsSync(postsDirectory)) {
     const fileNames = fs.readdirSync(postsDirectory);
     posts = fileNames
@@ -103,7 +103,7 @@ export async function getServerSideProps({ res }) {
     //   url: '/tools/fasta-to-pdb',
     //   status: 'coming-soon',
     // },
-  ].filter(tool => tool.status === 'available');
+  ].filter((tool) => tool.status === 'available');
 
   // Generate the XML sitemap
   const sitemap = generateSiteMap(posts, tools);

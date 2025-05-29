@@ -41,16 +41,16 @@ export default function BlogLayout({
 
         <main className="flex-grow">
           <div className="bg-white rounded-lg border border-gray-200">
-            <article className="max-w-4xl mx-auto">
+            <article className="max-w-5xl mx-auto">
               {/* Article Header */}
               <div className="px-5 lg:px-0 pt-12 lg:pt-24 border-gray-200">
                 <div className="">
-                  <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
+                  <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight tracking-tight max-w-4xl">
                     {title}
                   </h1>
 
                   {subtitle && (
-                    <h2 className="text-xl md:text-2xl text-gray-600 mb-8 font-normal leading-tight">
+                    <h2 className="text-xl md:text-2xl text-gray-600 mb-8 font-normal leading-tight max-w-4xl">
                       {subtitle}
                     </h2>
                   )}
@@ -66,19 +66,14 @@ export default function BlogLayout({
 
                   {featuredImage && (
                     <div className="w-full mb-8">
-                      {/* Option 1: Responsive Image with explicit dimensions */}
                       <Image
                         src={featuredImage}
                         alt={title}
-                        width={896}
-                        height={504}
-                        className="w-full h-auto rounded-lg object-cover"
+                        width={1024}
+                        height={512}
+                        className="w-full h-auto rounded-lg object-cover aspect-2/1"
                         priority
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 896px"
-                        style={{
-                          maxWidth: '100%',
-                          height: 'auto',
-                        }}
                       />
                     </div>
                   )}
@@ -87,7 +82,7 @@ export default function BlogLayout({
 
               {/* Article Content */}
               <div className="px-6 pt-8">
-                <div className="prose prose-lg max-w-[640px]">{children}</div>
+                <div className="prose prose-lg max-w-[680px]">{children}</div>
               </div>
 
               {/* Article Footer */}
@@ -157,47 +152,3 @@ export default function BlogLayout({
     </div>
   );
 }
-
-// Option 2: Using picture element with multiple sources (Alternative)
-/*
-{featuredImage && (
-  <div className="w-full mb-8">
-    <picture>
-      <source
-        media="(max-width: 640px)"
-        srcSet="/images/blog/tasser-alphafold-mobile.webp"
-      />
-      <source
-        media="(max-width: 1024px)"
-        srcSet="/images/blog/tasser-alphafold-tablet.webp"
-      />
-      <img
-        src={featuredImage}
-        alt={title}
-        className="w-full h-auto rounded-lg object-cover"
-        loading="eager"
-        style={{
-          aspectRatio: '16/9',
-          maxWidth: '100%',
-        }}
-      />
-    </picture>
-  </div>
-)}
-*/
-
-// Option 3: CSS-based responsive approach (Fallback)
-/*
-{featuredImage && (
-  <div 
-    className="w-full mb-8 rounded-lg overflow-hidden bg-cover bg-center bg-no-repeat"
-    style={{
-      backgroundImage: `url(${featuredImage})`,
-      aspectRatio: '16/9',
-      minHeight: '200px',
-    }}
-    role="img"
-    aria-label={title}
-  />
-)}
-*/

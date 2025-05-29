@@ -9,7 +9,7 @@ function generateSiteMap() {
   // Get blog posts
   const postsDirectory = path.join(process.cwd(), 'content/blog');
   let posts = [];
-  
+
   if (fs.existsSync(postsDirectory)) {
     const fileNames = fs.readdirSync(postsDirectory);
     posts = fileNames
@@ -94,7 +94,7 @@ function generateSiteMap() {
   if (!fs.existsSync(publicDir)) {
     fs.mkdirSync(publicDir, { recursive: true });
   }
-  
+
   fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemap);
   console.log('✅ Sitemap generated successfully at public/sitemap.xml');
 }

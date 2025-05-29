@@ -2,15 +2,15 @@
   "name": "proteiniq",
   "version": "0.1.0",
   "private": true,
- "scripts": {
-  "dev": "next dev",
-  "build": "npm run generate-sitemap && next build",
-  "start": "next start",
-  "lint": "next lint",
-  "format": "prettier --write .",
-  "format:check": "prettier --check .",
-  "generate-sitemap": "node scripts/generate-sitemap.js"
-},
+  "scripts": {
+    "dev": "next dev",
+    "build": "npm run generate-sitemap && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "generate-sitemap": "node scripts/generate-sitemap.js"
+  },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
@@ -32,7 +32,4 @@
     "prettier": "^3.5.3",
     "tailwindcss": "^4"
   }
-  
 }
-
-

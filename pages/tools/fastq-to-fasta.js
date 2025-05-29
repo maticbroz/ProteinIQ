@@ -302,7 +302,11 @@ export default function FastqToFasta({ mdxSource, frontMatter }) {
         <OutputSection
           output={output}
           outputFormat="FASTA"
-          placeholder={isProcessing ? "Converting to FASTA format..." : "FASTA output will appear here automatically..."}
+          placeholder={
+            isProcessing
+              ? 'Converting to FASTA format...'
+              : 'FASTA output will appear here automatically...'
+          }
           onCopy={copyToClipboard}
           onDownload={downloadFile}
           downloadFilename={getDownloadFilename()}

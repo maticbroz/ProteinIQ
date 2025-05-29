@@ -2,10 +2,10 @@ import Head from 'next/head';
 import Header from './Header';
 import Footer from './Footer';
 
-export default function Layout({ 
-  children, 
+export default function Layout({
+  children,
   title = 'ProteinIQ - Bioinformatics Tools for Researchers',
-  description = 'Free bioinformatics tools for researchers. Convert FASTQ to FASTA, analyze protein sequences, and more. Browser-based tools with no installation required.'
+  description = 'Free bioinformatics tools for researchers. Convert FASTQ to FASTA, analyze protein sequences, and more. Browser-based tools with no installation required.',
 }) {
   return (
     <div className="px-3 md:pl-8 md:pr-4">

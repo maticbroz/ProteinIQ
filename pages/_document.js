@@ -8,9 +8,12 @@ export default function Document() {
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
-          
         />
-        <script src="https://analytics.ahrefs.com/analytics.js" data-key="XTC48q9JxfiK0VnMWftPSw" async></script>
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="XTC48q9JxfiK0VnMWftPSw"
+          async
+        ></script>
       </Head>
       <body className="antialiased">
         <Main />
