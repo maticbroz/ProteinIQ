@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 function generateSiteMap(posts, tools) {
-  const baseUrl = 'https://proteiniq.com';
+  const baseUrl = 'https://proteiniq.io';
   const currentDate = new Date().toISOString();
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -15,43 +15,34 @@ function generateSiteMap(posts, tools) {
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
   <url>
     <loc>${baseUrl}/tools</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  
   <url>
     <loc>${baseUrl}/blog</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>${baseUrl}/about</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Tool pages -->
-  ${tools
-    .map((tool) => {
-      return `
+  <!-- Tool pages -->${tools
+    .map((tool) => `
   <url>
     <loc>${baseUrl}${tool.url}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>`;
-    })
+  </url>`)
     .join('')}
-
-  <!-- Blog posts -->
-  ${posts
+  <!-- Blog posts -->${posts
     .map((post) => {
       const lastmod = post.publishedDate || currentDate;
       return `
@@ -67,54 +58,67 @@ function generateSiteMap(posts, tools) {
 }
 
 function SiteMap() {
-  // getServerSideProps will do the heavy lifting
+  // This component will never actually render
+  return null;
 }
 
 export async function getServerSideProps({ res }) {
-  // Get blog posts
-  const postsDirectory = path.join(process.cwd(), 'content/blog');
-  let posts = [];
+  try {
+    // Get blog posts
+    const postsDirectory = path.join(process.cwd(), 'content/blog');
+    let posts = [];
 
-  if (fs.existsSync(postsDirectory)) {
-    const fileNames = fs.readdirSync(postsDirectory);
-    posts = fileNames
-      .filter((name) => name.endsWith('.mdx'))
-      .map((fileName) => {
-        const slug = fileName.replace(/\.mdx$/, '');
-        const fullPath = path.join(postsDirectory, fileName);
-        const fileContents = fs.readFileSync(fullPath, 'utf8');
-        const { data } = matter(fileContents);
+    if (fs.existsSync(postsDirectory)) {
+      const fileNames = fs.readdirSync(postsDirectory);
+      posts = fileNames
+        .filter((name) => name.endsWith('.mdx'))
+        .map((fileName) => {
+          const slug = fileName.replace(/\.mdx$/, '');
+          const fullPath = path.join(postsDirectory, fileName);
+          const fileContents = fs.readFileSync(fullPath, 'utf8');
+          const { data } = matter(fileContents);
 
-        return {
-          slug,
-          ...data,
-        };
-      });
+          return {
+            slug,
+            publishedDate: data.publishedDate,
+            ...data,
+          };
+        })
+        .filter(post => post.slug); // Filter out any invalid posts
+    }
+
+    // Get available tools
+    const tools = [
+      {
+        url: '/tools/fastq-to-fasta',
+        status: 'available',
+      },
+      // Add more tools here as they become available
+    ].filter((tool) => tool.status === 'available');
+
+    // Generate the XML sitemap
+    const sitemap = generateSiteMap(posts, tools);
+
+    // Set proper headers
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
+    
+    // Write the sitemap
+    res.write(sitemap);
+    res.end();
+
+    return {
+      props: {},
+    };
+  } catch (error) {
+    console.error('Error generating sitemap:', error);
+    res.statusCode = 500;
+    res.end();
+    
+    return {
+      props: {},
+    };
   }
-
-  // Get available tools (only the ones that are available)
-  const tools = [
-    {
-      url: '/tools/fastq-to-fasta',
-      status: 'available',
-    },
-    // Add more tools here as they become available
-    // {
-    //   url: '/tools/fasta-to-pdb',
-    //   status: 'coming-soon',
-    // },
-  ].filter((tool) => tool.status === 'available');
-
-  // Generate the XML sitemap
-  const sitemap = generateSiteMap(posts, tools);
-
-  res.setHeader('Content-Type', 'text/xml');
-  res.write(sitemap);
-  res.end();
-
-  return {
-    props: {},
-  };
 }
 
 export default SiteMap;
