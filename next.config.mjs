@@ -35,16 +35,17 @@ const nextConfig = {
   
   // Experimental features for better performance
   experimental: {
-    optimizeCss: true,
+    // optimizeCss: true, // Requires critters package - disabled for now
     optimizePackageImports: [
       'lucide-react',
       'date-fns',
     ],
   },
   
-  // Headers for better caching
+  // Headers for better caching and security
   async headers() {
     return [
+      // Static asset caching
       {
         source: '/_next/static/:path*',
         headers: [
@@ -72,12 +73,7 @@ const nextConfig = {
           },
         ],
       },
-    ];
-  },
-  
-  // Security headers
-  async headers() {
-    return [
+      // Security headers for all pages
       {
         source: '/(.*)',
         headers: [
