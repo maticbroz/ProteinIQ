@@ -20,44 +20,49 @@ export default function BlogIndex({ posts }) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             {posts.map((post) => (
-              <article
-                key={post.slug}
-                className="bg-white border-gray-200 overflow-hidden"
-              >
-                {post.featuredImage && (
-                  <div className="aspect-square bg-gray-100 relative rounded-lg overflow-hidden">
-                    <img
-                      src={post.featuredImage}
-                      alt={post.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                )}
+              <Link href={`/blog/${post.slug}`}>
+                <article
+                  key={post.slug}
+                  className="overflow-hidden bg-stone-50 rounded-3xl hover:bg-indigo-50 hover:rounded-[2.5rem] transition transition-all duration-300"
+                >
+                  {post.featuredImage && (
+                    <div className="aspect-video bg-gray-100 relative rounded-3xl overflow-hidden">
+                      <img
+                        src={post.featuredImage}
+                        alt={post.title}
+                        className="w-full h-full object-cover "
+                      />
+                    </div>
+                  )}
 
-                <div className="mt-4">
-                  <div className="mb-3">
-                    <Link href={`/blog/${post.slug}`}>
-                      <h2 className="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors mb-2">
+                  <div className="mt-4 p-5">
+                    <div className="mb-3">
+                      <h2 className="text-2xl font-medium text-gray-900 mb-4">
                         {post.title}
                       </h2>
-                    </Link>
-                  </div>
 
-                  <div className="flex items-center text-xs text-gray-500 mb-4">
-                    <span className="font-medium">{post.author}</span>
-                    {post.publishedDate && (
-                      <>
-                        <span className="mx-2">•</span>
-                        <time dateTime={post.publishedDate}>
-                          {format(new Date(post.publishedDate), 'MMM d, yyyy')}
-                        </time>
-                      </>
-                    )}
+                      <p class="text-base/6">{post.subtitle}</p>
+                    </div>
+
+                    <div className="flex items-center text-xs text-gray-500 mb-4 hidden">
+                      <span className="font-medium">{post.author}</span>
+                      {post.publishedDate && (
+                        <>
+                          <span className="mx-2">•</span>
+                          <time dateTime={post.publishedDate}>
+                            {format(
+                              new Date(post.publishedDate),
+                              'MMM d, yyyy'
+                            )}
+                          </time>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             ))}
           </div>
 

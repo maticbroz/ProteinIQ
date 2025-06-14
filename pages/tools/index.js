@@ -5,8 +5,7 @@ export default function ToolsIndex() {
   const tools = [
     {
       title: 'FASTQ to FASTA',
-      description:
-        'Convert FASTQ sequence files to FASTA format.',
+      description: 'Convert FASTQ sequence files to FASTA format.',
       href: '/tools/fastq-to-fasta',
       icon: '🧬',
       status: 'available',
@@ -38,20 +37,21 @@ export default function ToolsIndex() {
               <Link href={tool.href} className="">
                 <div
                   key={index}
-                  className="flex flex-row gap-4 items-start py-1 px-2 rounded-md hover:bg-gray-100 ransition-all duration-200">
-                    <div className="bg-gradient-to-bl from-white/50 to-gray-50 text-2xl mt-1 p-1 aspect-square border rounded-lg border-gray-200 leading-0 flex items-center">
-                      {tool.icon}
-                    </div>
+                  className="flex flex-row gap-4 items-start py-2 px-2 rounded-lg bg-neutral-100 hover:bg-indigo-200/75 hover:rounded-2xl transition transition-all duration-300"
+                >
+                  <div className="bg-gradient-to-bl from-white/50 to-gray-50 text-2xl mt-1 p-1 aspect-square border rounded-lg border-gray-200 leading-0 flex items-center">
+                    {tool.icon}
+                  </div>
 
-                    <div>
-                      <h3 className="text-md font-medium text-gray-900">
-                        {tool.title}
-                      </h3>
+                  <div>
+                    <h3 className="text-md font-medium text-gray-900">
+                      {tool.title}
+                    </h3>
 
-                      <p className="text-gray-600 leading-relaxed text-sm leading-tight">
-                        {tool.description}
-                      </p>
-                    </div>
+                    <p className="text-gray-600 leading-relaxed text-sm leading-tight">
+                      {tool.description}
+                    </p>
+                  </div>
                 </div>
               </Link>
             ))}

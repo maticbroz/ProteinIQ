@@ -8,14 +8,19 @@ const tools = [
     status: 'available',
   },
   {
-    name: 'PDB to FASTA',
-    url: '/tools/pdb-to-fasta',
-    status: 'coming-soon',
-  },
-  {
     name: 'TXT to FASTA',
     url: '/tools/txt-to-fasta',
-    status: 'coming-soon',
+    status: 'available',
+  },
+    {
+    name: 'SDF to PDB',
+    url: '/tools/sdf-to-pdb',
+    status: 'available',
+  },
+  {
+    name: 'PDB to FASTA',
+    url: '/tools/pdb-to-fasta',
+    status: 'available',
   },
   {
     name: 'Sequence to FASTA',
@@ -30,11 +35,6 @@ const tools = [
   {
     name: 'PDB to CIF',
     url: '/tools/pdb-to-cif',
-    status: 'coming-soon',
-  },
-  {
-    name: 'SDF to PDB',
-    url: '/tools/sdf-to-pdb',
     status: 'coming-soon',
   },
 ];

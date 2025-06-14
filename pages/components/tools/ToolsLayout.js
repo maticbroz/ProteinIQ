@@ -14,7 +14,7 @@ export default function ToolsLayout({
   return (
     <div className="px-3 md:pl-8 md:pr-4">
       <Head>
-        <title>{title}</title>
+        <title>{title} | ProteinIQ</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content={title} />
@@ -25,9 +25,9 @@ export default function ToolsLayout({
       <div className="min-h-screen flex flex-col">
         <Header />
 
-        <div className="flex-grow flex">
+        <div className="flex-grow lg:flex">
           {showSidebar && (
-            <div className="">
+            <div className="hidden lg:block">
               <ToolsSidebar />
             </div>
           )}
