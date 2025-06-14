@@ -310,93 +310,90 @@ export default function PdbToFasta({ mdxSource, frontMatter }) {
       subtitle="Extract amino acid sequences from PDB protein structure files. Upload a PDB file or paste the structure data below."
     >
       <div className="flex flex-col gap-16">
-
         <div class="flex flex-col gap-6">
-        <InputSection
-          input={input}
-          onInputChange={setInput}
-          inputFormat="PDB"
-          placeholder="HEADER    HYDROLASE                               01-JUN-95   1HTM&#10;TITLE     HUMAN CARBONIC ANHYDRASE II IN COMPLEX WITH A SULFONAMIDE&#10;COMPND    MOL_ID: 1;&#10;COMPND   2 MOLECULE: CARBONIC ANHYDRASE II;&#10;COMPND   3 CHAIN: A;&#10;ATOM      1  N   ALA A   1      20.154  -6.351  -9.353  1.00 17.93           N&#10;ATOM      2  CA  ALA A   1      19.030  -6.508 -10.279  1.00 17.93           C&#10;..."
-          acceptedFileTypes=".pdb,.ent"
-          fileTypeDescription="PDB file (.pdb, .ent)"
-          onClear={clearAll}
-          onFileUpload={handleFileUpload}
-          isUploading={isUploading}
-          error={error}
-        />
-        {/* Conversion Options */}
-        <div className="space-y-6 bg-gray-50 p-6 rounded-lg border border-gray-300">
-
-
-          {/* Chain Selection */}
-          <div className="space-y-3">
-            <label className="block text-sm font-semibold text-gray-700">
-              Chain selection
-            </label>
-            <div className="flex flex-wrap gap-4">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  value="all"
-                  checked={selectedChains === 'all'}
-                  onChange={(e) => setSelectedChains(e.target.value)}
-                  className="mr-2"
-                />
-                <span className="text-sm">All chains</span>
+          <InputSection
+            input={input}
+            onInputChange={setInput}
+            inputFormat="PDB"
+            placeholder="HEADER    HYDROLASE                               01-JUN-95   1HTM&#10;TITLE     HUMAN CARBONIC ANHYDRASE II IN COMPLEX WITH A SULFONAMIDE&#10;COMPND    MOL_ID: 1;&#10;COMPND   2 MOLECULE: CARBONIC ANHYDRASE II;&#10;COMPND   3 CHAIN: A;&#10;ATOM      1  N   ALA A   1      20.154  -6.351  -9.353  1.00 17.93           N&#10;ATOM      2  CA  ALA A   1      19.030  -6.508 -10.279  1.00 17.93           C&#10;..."
+            acceptedFileTypes=".pdb,.ent"
+            fileTypeDescription="PDB file (.pdb, .ent)"
+            onClear={clearAll}
+            onFileUpload={handleFileUpload}
+            isUploading={isUploading}
+            error={error}
+          />
+          {/* Conversion Options */}
+          <div className="space-y-6 bg-gray-50 p-6 rounded-lg border border-gray-300">
+            {/* Chain Selection */}
+            <div className="space-y-3">
+              <label className="block text-sm font-semibold text-gray-700">
+                Chain selection
               </label>
+              <div className="flex flex-wrap gap-4">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    value="all"
+                    checked={selectedChains === 'all'}
+                    onChange={(e) => setSelectedChains(e.target.value)}
+                    className="mr-2"
+                  />
+                  <span className="text-sm">All chains</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    value="specific"
+                    checked={selectedChains === 'specific'}
+                    onChange={(e) => setSelectedChains(e.target.value)}
+                    className="mr-2"
+                  />
+                  <span className="text-sm">Specific chains</span>
+                </label>
+              </div>
+
+              {selectedChains === 'specific' && (
+                <div className="mt-3">
+                  <input
+                    type="text"
+                    value={specificChains}
+                    onChange={(e) => setSpecificChains(e.target.value)}
+                    placeholder="Enter chain IDs (e.g., A, B, C or A,B,C)"
+                    className="w-full px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                  />
+                  {availableChains.length > 0 && (
+                    <p className="text-xs text-gray-600 mt-1">
+                      Available chains in file: {availableChains.join(', ')}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Additional Options */}
+            <div className="space-y-3">
               <label className="flex items-center">
                 <input
-                  type="radio"
-                  value="specific"
-                  checked={selectedChains === 'specific'}
-                  onChange={(e) => setSelectedChains(e.target.value)}
+                  type="checkbox"
+                  checked={includeHetAtoms}
+                  onChange={(e) => setIncludeHetAtoms(e.target.checked)}
                   className="mr-2"
                 />
-                <span className="text-sm">Specific chains</span>
+                <span className="text-sm">
+                  Include heteroatoms (modified amino acids, ligands)
+                </span>
               </label>
             </div>
 
-            {selectedChains === 'specific' && (
-              <div className="mt-3">
-                <input
-                  type="text"
-                  value={specificChains}
-                  onChange={(e) => setSpecificChains(e.target.value)}
-                  placeholder="Enter chain IDs (e.g., A, B, C or A,B,C)"
-                  className="w-full px-3 py-1.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-                />
-                {availableChains.length > 0 && (
-                  <p className="text-xs text-gray-600 mt-1">
-                    Available chains in file: {availableChains.join(', ')}
-                  </p>
-                )}
+            {availableChains.length > 0 && (
+              <div className="bg-indigo-50 p-3 rounded-md border border-indigo-100">
+                <p className="text-sm text-indigo-800">
+                  <strong>Detected chains:</strong> {availableChains.join(', ')}
+                </p>
               </div>
             )}
           </div>
-
-          {/* Additional Options */}
-          <div className="space-y-3">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={includeHetAtoms}
-                onChange={(e) => setIncludeHetAtoms(e.target.checked)}
-                className="mr-2"
-              />
-              <span className="text-sm">
-                Include heteroatoms (modified amino acids, ligands)
-              </span>
-            </label>
-          </div>
-
-          {availableChains.length > 0 && (
-            <div className="bg-indigo-50 p-3 rounded-md border border-indigo-100">
-              <p className="text-sm text-indigo-800">
-                <strong>Detected chains:</strong> {availableChains.join(', ')}
-              </p>
-            </div>
-          )}
-        </div>
         </div>
 
         <OutputSection

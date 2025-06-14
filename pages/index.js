@@ -65,18 +65,18 @@ export default function Home() {
       <section className="relative px-6 py-20 md:py-32">
         <div className="max-w-6xl mx-auto">
           <div className="">
-
             <h1 className="text-5xl md:text-7xl font-semibold text-slate-900 mb-8 tracking-tighter">
               Bioinformatics tools
               <br />
               for&nbsp;
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
-                 researchers
+                researchers
               </span>
             </h1>
 
             <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl leading-relaxed pr-32">
-              ProteinIQ is a free, browser-based collection of tools and information for protein scientists. 
+              ProteinIQ is a free, browser-based collection of tools and
+              information for protein scientists.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -84,10 +84,8 @@ export default function Home() {
                 href="/tools"
                 className="inline-flex items-center px-8 py-4 text-white rounded-full font-semibold bg-indigo-600 hover:bg-indigo-500 transition-all duration-300"
               >
-
                 Explore tools
               </Link>
-
             </div>
           </div>
         </div>

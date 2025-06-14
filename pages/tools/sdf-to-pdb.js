@@ -440,94 +440,98 @@ export default function SdfToPdb({ mdxSource, frontMatter }) {
       subtitle="Convert your SDF molecular structure files to PDB format. Upload an SDF file or paste the structure data below."
     >
       <div className="flex flex-col gap-16">
-
         <div class="flex flex-col gap-6">
+          <InputSection
+            input={input}
+            onInputChange={setInput}
+            inputFormat="SDF"
+            placeholder="  Benzene&#10;&#10;&#10;  6  6  0  0  0  0  0  0  0  0999 V2000&#10;    1.2124    0.7000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;    1.2124   -0.7000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;    0.0000   -1.4000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;   -1.2124   -0.7000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;   -1.2124    0.7000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;    0.0000    1.4000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;  1  2  2  0  0  0  0&#10;  2  3  1  0  0  0  0&#10;  3  4  2  0  0  0  0&#10;  4  5  1  0  0  0  0&#10;  5  6  2  0  0  0  0&#10;  6  1  1  0  0  0  0&#10;M  END&#10;$$$$"
+            acceptedFileTypes=".sdf,.mol,.sd"
+            fileTypeDescription="SDF file (.sdf, .mol, .sd)"
+            onClear={clearAll}
+            onFileUpload={handleFileUpload}
+            isUploading={isUploading}
+            error={error}
+          />
+          {/* Conversion Options */}
+          <div className="space-y-3 bg-gray-50 p-6 rounded-lg border border-gray-300">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Conversion options
+            </h3>
 
-                  <InputSection
-          input={input}
-          onInputChange={setInput}
-          inputFormat="SDF"
-          placeholder="  Benzene&#10;&#10;&#10;  6  6  0  0  0  0  0  0  0  0999 V2000&#10;    1.2124    0.7000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;    1.2124   -0.7000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;    0.0000   -1.4000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;   -1.2124   -0.7000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;   -1.2124    0.7000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;    0.0000    1.4000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0&#10;  1  2  2  0  0  0  0&#10;  2  3  1  0  0  0  0&#10;  3  4  2  0  0  0  0&#10;  4  5  1  0  0  0  0&#10;  5  6  2  0  0  0  0&#10;  6  1  1  0  0  0  0&#10;M  END&#10;$$$$"
-          acceptedFileTypes=".sdf,.mol,.sd"
-          fileTypeDescription="SDF file (.sdf, .mol, .sd)"
-          onClear={clearAll}
-          onFileUpload={handleFileUpload}
-          isUploading={isUploading}
-          error={error}
-        />
-        {/* Conversion Options */}
-        <div className="space-y-3 bg-gray-50 p-6 rounded-lg border border-gray-300">
-          <h3 className="text-lg font-semibold text-gray-800">
-            Conversion options
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* General Options */}
-            <div className="space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* General Options */}
               <div className="space-y-2">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={conversionOptions.includeHeader}
-                    onChange={(e) =>
-                      setConversionOptions((prev) => ({
-                        ...prev,
-                        includeHeader: e.target.checked,
-                      }))
-                    }
-                    className="mr-2"
-                  />
-                  <span className="text-sm">Include PDB header records</span>
-                </label>
+                <div className="space-y-2">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={conversionOptions.includeHeader}
+                      onChange={(e) =>
+                        setConversionOptions((prev) => ({
+                          ...prev,
+                          includeHeader: e.target.checked,
+                        }))
+                      }
+                      className="mr-2"
+                    />
+                    <span className="text-sm">Include PDB header records</span>
+                  </label>
 
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={conversionOptions.includeConnect}
-                    onChange={(e) =>
-                      setConversionOptions((prev) => ({
-                        ...prev,
-                        includeConnect: e.target.checked,
-                      }))
-                    }
-                    className="mr-2"
-                  />
-                  <span className="text-sm">
-                    Include CONECT records for bonds
-                  </span>
-                </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={conversionOptions.includeConnect}
+                      onChange={(e) =>
+                        setConversionOptions((prev) => ({
+                          ...prev,
+                          includeConnect: e.target.checked,
+                        }))
+                      }
+                      className="mr-2"
+                    />
+                    <span className="text-sm">
+                      Include CONECT records for bonds
+                    </span>
+                  </label>
 
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={conversionOptions.preserveCharges}
-                    onChange={(e) =>
-                      setConversionOptions((prev) => ({
-                        ...prev,
-                        preserveCharges: e.target.checked,
-                      }))
-                    }
-                    className="mr-2"
-                  />
-                  <span className="text-sm">Preserve atomic charges</span>
-                </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={conversionOptions.preserveCharges}
+                      onChange={(e) =>
+                        setConversionOptions((prev) => ({
+                          ...prev,
+                          preserveCharges: e.target.checked,
+                        }))
+                      }
+                      className="mr-2"
+                    />
+                    <span className="text-sm">Preserve atomic charges</span>
+                  </label>
+                </div>
               </div>
-            </div>
 
-            {/* Naming Options */}
+              {/* Naming Options */}
               <div className="space-y-3 flex flex-row gap-4">
                 <div>
-                  <label for="chainID" className="block text-sm font-medium text-gray-600 mb-1">
+                  <label
+                    for="chainID"
+                    className="block text-sm font-medium text-gray-600 mb-1"
+                  >
                     Chain ID
                   </label>
-               <input
+                  <input
                     type="text"
                     value={conversionOptions.chainId}
                     onChange={(e) => {
                       const value = e.target.value;
-                      setConversionOptions(prev => ({
+                      setConversionOptions((prev) => ({
                         ...prev,
-                        chainId: value === '' ? 'A' : value.substring(0, 2).toUpperCase()
+                        chainId:
+                          value === ''
+                            ? 'A'
+                            : value.substring(0, 2).toUpperCase(),
                       }));
                     }}
                     maxLength="2"
@@ -559,11 +563,9 @@ export default function SdfToPdb({ mdxSource, frontMatter }) {
                     UNL = Unknown ligand
                   </p>
                 </div>
+              </div>
             </div>
           </div>
-        </div>
-
-
         </div>
 
         <OutputSection

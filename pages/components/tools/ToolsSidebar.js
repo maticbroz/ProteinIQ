@@ -12,7 +12,7 @@ const tools = [
     url: '/tools/txt-to-fasta',
     status: 'available',
   },
-    {
+  {
     name: 'SDF to PDB',
     url: '/tools/sdf-to-pdb',
     status: 'available',
