@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import ToolsLayout from '../components/tools/ToolsLayout';
-import InputSection from '../components/tools/InputSection';
-import OutputSection from '../components/tools/OutputSection';
-import ToolDocumentation from '../components/tools/ToolDocumentation';
+import ToolsLayout from '../../components/tools/ToolsLayout';
+import InputSection from '../../components/tools/InputSection';
+import OutputSection from '../../components/tools/OutputSection';
+import ToolDocumentation from '../../components/tools/ToolDocumentation';
 import { createToolStaticProps } from '../../lib/loadToolDocumentation';
 
 export default function PdbToCif({ mdxSource, frontMatter }) {

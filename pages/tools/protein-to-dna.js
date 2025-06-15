@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-import ToolsLayout from '../components/tools/ToolsLayout';
-import InputSection from '../components/tools/InputSection';
-import OutputSection from '../components/tools/OutputSection';
-import ToolDocumentation from '../components/tools/ToolDocumentation';
+import ToolsLayout from '../../components/tools/ToolsLayout';
+import InputSection from '../../components/tools/InputSection';
+import OutputSection from '../../components/tools/OutputSection';
+import ToolDocumentation from '../../components/tools/ToolDocumentation';
 import { createToolStaticProps } from '../../lib/loadToolDocumentation';
-import { Info } from 'lucide-react';
-import { InfoText } from '../../pages/components/snippets/Info';
+import { InfoText } from '../../components/ui/Info';
 
 export default function ProteinToDna({ mdxSource, frontMatter }) {
   const [input, setInput] = useState('');

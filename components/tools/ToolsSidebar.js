@@ -1,7 +1,7 @@
 // components/tools/ToolsSidebar.js
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { toolSections } from '../../../config/tools';
+import { toolSections } from '../../config/tools';
 
 export default function ToolsSidebar() {
   const router = useRouter();

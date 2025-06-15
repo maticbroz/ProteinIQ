@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import ToolsLayout from '../components/tools/ToolsLayout';
-import InputSection from '../components/tools/InputSection';
-import OutputSection from '../components/tools/OutputSection';
-import ToolDocumentation from '../components/tools/ToolDocumentation';
+import ToolsLayout from '../../components/tools/ToolsLayout';
+import InputSection from '../../components/tools/InputSection';
+import OutputSection from '../../components/tools/OutputSection';
+import ToolDocumentation from '../../components/tools/ToolDocumentation';
 import { createToolStaticProps } from '../../lib/loadToolDocumentation';
-import { InfoText } from '../../pages/components/snippets/Info';
 
 export default function DnaToProtein({ mdxSource, frontMatter }) {
   const [input, setInput] = useState('');

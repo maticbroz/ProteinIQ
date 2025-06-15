@@ -1,5 +1,5 @@
 // pages/tools/index.js
-import ToolsLayout from '../components/tools/ToolsLayout';
+import ToolsLayout from '../../components/tools/ToolsLayout';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
