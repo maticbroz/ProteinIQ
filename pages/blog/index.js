@@ -1,4 +1,4 @@
-import Layout from '../../pages/components/Layout';
+import Layout from '../../components/Layout';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import fs from 'fs';

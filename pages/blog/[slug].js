@@ -5,7 +5,7 @@ import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
-import BlogLayout from '../../pages/components/BlogLayout';
+import BlogLayout from '../../components/BlogLayout';
 
 // MDX components - you can add custom components here
 const components = {
