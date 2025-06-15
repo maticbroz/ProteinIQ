@@ -6,59 +6,55 @@ function generateSiteMap(posts, tools) {
   const baseUrl = 'https://proteiniq.io';
   const currentDate = new Date().toISOString();
 
+  // Static pages
+  const staticPages = [
+    { url: '/', priority: '1.0', changefreq: 'weekly' },
+    { url: '/tools', priority: '0.9', changefreq: 'weekly' },
+    { url: '/blog', priority: '0.8', changefreq: 'weekly' },
+    { url: '/about', priority: '0.7', changefreq: 'monthly' },
+  ];
+
+  // Combine all URLs
+  const allUrls = [
+    // Static pages
+    ...staticPages.map((page) => ({
+      loc: `${baseUrl}${page.url}`,
+      lastmod: currentDate,
+      changefreq: page.changefreq,
+      priority: page.priority,
+    })),
+    // Tool pages
+    ...tools.map((tool) => ({
+      loc: `${baseUrl}${tool.url}`,
+      lastmod: currentDate,
+      changefreq: 'monthly',
+      priority: '0.8',
+    })),
+    // Blog posts
+    ...posts.map((post) => ({
+      loc: `${baseUrl}/blog/${post.slug}`,
+      lastmod: post.publishedDate || currentDate,
+      changefreq: 'monthly',
+      priority: '0.7',
+    })),
+  ];
+
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Static pages -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${allUrls
+    .map(
+      (url) => `
   <url>
-    <loc>${baseUrl}/</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/tools</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/blog</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/about</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <!-- Tool pages -->${tools
-    .map((tool) => `
-  <url>
-    <loc>${baseUrl}${tool.url}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>`)
-    .join('')}
-  <!-- Blog posts -->${posts
-    .map((post) => {
-      const lastmod = post.publishedDate || currentDate;
-      return `
-  <url>
-    <loc>${baseUrl}/blog/${post.slug}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>`;
-    })
+    <loc>${url.loc}</loc>
+    <lastmod>${url.lastmod}</lastmod>
+    <changefreq>${url.changefreq}</changefreq>
+    <priority>${url.priority}</priority>
+  </url>`
+    )
     .join('')}
 </urlset>`;
 }
 
 function SiteMap() {
-  // This component will never actually render
   return null;
 }
 
@@ -84,26 +80,40 @@ export async function getServerSideProps({ res }) {
             ...data,
           };
         })
-        .filter(post => post.slug); // Filter out any invalid posts
+        .filter((post) => post.slug);
     }
 
-    // Get available tools
-    const tools = [
-      {
-        url: '/tools/fastq-to-fasta',
-        status: 'available',
-      },
-      // Add more tools here as they become available
-    ].filter((tool) => tool.status === 'available');
+    // Get tools by scanning the tools directory
+    const toolsDirectory = path.join(process.cwd(), 'pages/tools');
+    let tools = [];
+
+    if (fs.existsSync(toolsDirectory)) {
+      const toolFiles = fs.readdirSync(toolsDirectory);
+      tools = toolFiles
+        .filter(
+          (name) =>
+            name !== 'index.js' &&
+            name !== 'index.tsx' &&
+            (name.endsWith('.js') || name.endsWith('.tsx'))
+        )
+        .map((fileName) => {
+          const toolName = fileName.replace(/\.(js|tsx)$/, '');
+          return {
+            url: `/tools/${toolName}`,
+          };
+        });
+    }
 
     // Generate the XML sitemap
     const sitemap = generateSiteMap(posts, tools);
 
     // Set proper headers
     res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
-    
-    // Write the sitemap
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=86400, stale-while-revalidate'
+    );
+
     res.write(sitemap);
     res.end();
 
@@ -114,7 +124,7 @@ export async function getServerSideProps({ res }) {
     console.error('Error generating sitemap:', error);
     res.statusCode = 500;
     res.end();
-    
+
     return {
       props: {},
     };

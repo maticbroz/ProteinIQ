@@ -440,7 +440,7 @@ export default function SdfToPdb({ mdxSource, frontMatter }) {
       subtitle="Convert your SDF molecular structure files to PDB format. Upload an SDF file or paste the structure data below."
     >
       <div className="flex flex-col gap-16">
-        <div class="flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
           <InputSection
             input={input}
             onInputChange={setInput}
@@ -516,7 +516,7 @@ export default function SdfToPdb({ mdxSource, frontMatter }) {
               <div className="space-y-3 flex flex-row gap-4">
                 <div>
                   <label
-                    for="chainID"
+                    htmlFor="chainID"
                     className="block text-sm font-medium text-gray-600 mb-1"
                   >
                     Chain ID
@@ -541,10 +541,14 @@ export default function SdfToPdb({ mdxSource, frontMatter }) {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                  <label
+                    htmlFor="residueName"
+                    className="block text-sm font-medium text-gray-600 mb-1"
+                  >
                     Residue name (3 letters)
                   </label>
                   <input
+                    id="residueName"
                     type="text"
                     value={conversionOptions.moleculeName}
                     onChange={(e) =>

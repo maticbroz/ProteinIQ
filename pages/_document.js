@@ -18,11 +18,15 @@ export default function Document() {
             href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
           />
         </noscript>
+        <link
+          rel="stylesheet"
+          href="https://use.typekit.net/lxv8dll.css"
+        ></link>
       </Head>
       <body className="antialiased">
         <Main />
         <NextScript />
-        
+
         {/* Load analytics after interaction */}
         <Script
           src="https://analytics.ahrefs.com/analytics.js"

@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { Trash2, Loader2, Upload } from 'lucide-react';
 
 export default function InputSection({
   input,
@@ -51,7 +52,7 @@ export default function InputSection({
 
   return (
     <div className="space-y-6">
-      <label className="block text-sm font-semibold text-gray-700 mb-3">
+      <label className="block font-semibold text-gray-700 mb-3">
         Input ({inputFormat} Format)
       </label>
 
@@ -69,17 +70,10 @@ export default function InputSection({
               <button
                 onClick={handleClearClick}
                 title="Clear All"
-                className="p-2 text-gray-700 hover:bg-gray-200 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 text-gray-700 hover:bg-gray-200 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 disabled={!input}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 -960 960 960"
-                  className="h-5 w-5"
-                  fill="currentColor"
-                >
-                  <path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z" />
-                </svg>
+                <Trash2 size={16} strokeWidth={1.5} />
               </button>
             </div>
             <span className="text-gray-600 text-sm">{inputFormat}</span>
@@ -100,43 +94,17 @@ export default function InputSection({
           {isUploading ? (
             <div className="space-y-3">
               <div className="mx-auto h-12 w-12 text-blue-500">
-                <svg
-                  className="animate-spin h-12 w-12"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  />
-                </svg>
+                <Loader2 size={48} className="animate-spin" strokeWidth={1.5} />
               </div>
               <p className="text-sm text-gray-600 font-medium">Loading...</p>
             </div>
           ) : (
             <>
-              <svg
-                className="mx-auto h-12 w-12 text-gray-400"
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 48 48"
-              >
-                <path
-                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <Upload
+                size={48}
+                className="mx-auto text-gray-400"
+                strokeWidth={1.5}
+              />
               <div className="mt-4">
                 <p className="text-sm text-gray-600">
                   <span

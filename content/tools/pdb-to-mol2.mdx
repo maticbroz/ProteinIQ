@@ -1,0 +1,164 @@
+## What's the difference between PDB and MOL2 formats?
+
+**PDB (Protein Data Bank)** files store atomic coordinates for proteins, nucleic acids, and other macromolecules, often including experimental metadata and biological context.
+
+Key features of the PDB format:
+
+- Fixed-width columns with specific positioning
+- ATOM records contain chain ID, residue name, and atom serial numbers
+- CONECT records explicitly define atomic bonds
+- Header information includes experimental metadata
+- Primarily designed for macromolecular structures
+
+```pdb
+HEADER    SMALL MOLECULE                          15-JUN-25   DEMO
+TITLE     EXAMPLE MOLECULE - METHANOL
+ATOM      1  C   UNL A   1      -0.748   0.015   0.024  1.00 20.00           C
+ATOM      2  O   UNL A   1       0.667   0.015   0.024  1.00 20.00           O
+ATOM      3  H   UNL A   1      -1.142  -0.505  -0.861  1.00 20.00           H
+ATOM      4  H   UNL A   1      -1.142  -0.505   0.909  1.00 20.00           H
+ATOM      5  H   UNL A   1      -1.142   1.035   0.024  1.00 20.00           H
+ATOM      6  H   UNL A   1       0.962   0.535   0.789  1.00 20.00           H
+CONECT    1    2    3    4    5
+CONECT    2    1    6
+END
+```
+
+**MOL2 (Tripos MOL2)** files contain molecular structure data with enhanced chemical information including formal charges, atom types, and substructure definitions, commonly used in computational chemistry and drug design.
+
+Key features of the MOL2 format:
+
+- Human-readable ASCII format with tagged sections
+- `@<TRIPOS>MOLECULE` section with molecular properties
+- `@<TRIPOS>ATOM` section with coordinates, atom types, and formal charges
+- `@<TRIPOS>BOND` section defining connectivity and bond types
+- Support for multiple molecules in a single file
+- Widely used in molecular modeling software like SYBYL
+
+```mol2
+@&lt;TRIPOS&gt;MOLECULE
+Methanol
+6 5 0 0 0
+SMALL
+USER_CHARGES
+
+@&lt;TRIPOS&gt;ATOM
+1 C1 -0.7480 0.0150 0.0240 C.3 1 UNL 0.1450
+2 O1 0.6670 0.0150 0.0240 O.3 1 UNL -0.3950
+3 H1 -1.1420 -0.5050 -0.8610 H 1 UNL 0.0625
+4 H2 -1.1420 -0.5050 0.9090 H 1 UNL 0.0625
+5 H3 -1.1420 1.0350 0.0240 H 1 UNL 0.0625
+6 H4 0.9620 0.5350 0.7890 H 1 UNL 0.2625
+
+@&lt;TRIPOS&gt;BOND
+1 1 2 1
+2 1 3 1
+3 1 4 1
+4 1 5 1
+5 2 6 1
+```
+
+The conversion from PDB to MOL2 transforms the fixed-width PDB format into the more flexible MOL2 structure while adding chemical information like atom types, formal charges, and enhanced bond descriptions.
+
+Common use cases for converting PDB to MOL2 include:
+
+- Preparing structures for molecular dynamics simulations
+- Input for QSAR modeling and drug design workflows
+- Compatibility with Tripos SYBYL and other molecular modeling packages
+- Enhanced chemical analysis with formal charge and atom type information
+- Creating ligand libraries for virtual screening campaigns
+
+## Other PDB to MOL2 conversion methods
+
+The ProteinIQ PDB to MOL2 converter provides an efficient online solution for quick conversions without software installation, particularly valuable for researchers needing occasional format conversion with customizable atom typing and charge assignment.
+
+### Using OpenBabel (Command Line)
+
+OpenBabel offers robust PDB to MOL2 conversion with various options:
+
+```bash
+# Basic PDB to MOL2 conversion
+obabel input.pdb -O output.mol2
+
+# Convert with formal charge calculation
+obabel input.pdb -O output.mol2 --partialcharge gasteiger
+
+# Add hydrogens during conversion
+obabel input.pdb -O output.mol2 -h
+
+# Batch convert multiple PDB files
+obabel *.pdb -O combined.mol2
+```
+
+### Using PyMOL
+
+PyMOL provides both GUI and scripting options for PDB to MOL2 conversion:
+
+```python
+# PyMOL command line
+load input.pdb
+save output.mol2
+
+# Or using PyMOL Python API with additional processing
+import pymol
+pymol.cmd.load("input.pdb")
+pymol.cmd.h_add()  # Add hydrogens if needed
+pymol.cmd.save("output.mol2")
+```
+
+### Using RDKit (Python)
+
+For programmatic conversion with enhanced chemical processing:
+
+```python
+from rdkit import Chem
+from rdkit.Chem import AllChem, rdMolDescriptors
+
+# Read PDB file
+mol = Chem.MolFromPDBFile('input.pdb')
+
+if mol is not None:
+    # Add hydrogens and compute partial charges
+    mol = Chem.AddHs(mol)
+    AllChem.ComputeGasteigerCharges(mol)
+
+    # Write to MOL2 format
+    writer = Chem.rdmolfiles.MolToMol2File(mol, 'output.mol2')
+```
+
+### Using UCSF Chimera
+
+Chimera offers a GUI-based approach with advanced molecular visualization:
+
+```text
+1. File → Open → Select your PDB file
+2. Tools → Structure Editing → Add H (if hydrogens needed)
+3. Tools → Structure Analysis → Add Charges
+4. File → Save MOL2
+5. Choose output location and save
+```
+
+### Using Schrödinger Suite
+
+For advanced molecular modeling workflows:
+
+```text
+1. Open Maestro
+2. Import → Import Structures → Select PDB file
+3. Tools → Protein Preparation Wizard (if needed)
+4. Export → Export Structures
+5. Select MOL2 format and configure options
+6. Save to desired location
+```
+
+### Using GOLD Suite
+
+Specifically for drug design applications:
+
+```text
+1. Load PDB structure in GOLD
+2. Prepare → Process Ligand
+3. Set atom types and formal charges
+4. Export → MOL2 format
+5. Save processed structure
+```

@@ -31,7 +31,7 @@ export default function Footer() {
               About
             </a>
             <a
-              href="mailto:hello@proteiniq.com"
+              href="mailto:matic.broz@gmail.com"
               className="text-gray-600 hover:text-blue-600 text-sm font-medium transition-colors"
             >
               Contact

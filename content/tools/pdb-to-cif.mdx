@@ -1,0 +1,300 @@
+## What is PDB format?
+
+**PDB format** (Protein Data Bank) is a legacy text-based file format for storing three-dimensional molecular structure data. Developed in the 1970s, it uses fixed-width columns to store atomic coordinates, connectivity, and metadata about macromolecular structures.
+
+The format consists of various record types:
+
+- **HEADER:** General information about the structure
+- **TITLE:** Descriptive title of the structure
+- **ATOM/HETATM:** Atomic coordinates and properties
+- **CONECT:** Connectivity information for bonds
+- **HELIX/SHEET:** Secondary structure annotations
+
+Here's an example PDB file structure:
+
+```
+HEADER    HYDROLASE                               01-JUN-95   1HTM
+TITLE     HUMAN CARBONIC ANHYDRASE II IN COMPLEX WITH A SULFONAMIDE
+COMPND    MOL_ID: 1;
+COMPND   2 MOLECULE: CARBONIC ANHYDRASE II;
+COMPND   3 CHAIN: A;
+ATOM      1  N   ALA A   1      20.154  -6.351  -9.353  1.00 17.93           N
+ATOM      2  CA  ALA A   1      19.030  -6.508 -10.279  1.00 17.93           C
+ATOM      3  C   ALA A   1      18.885  -7.948 -10.721  1.00 17.93           C
+```
+
+## What is CIF format?
+
+**CIF format** (Crystallographic Information File), specifically **mmCIF** (macromolecular CIF), is the modern standard format for storing structural biology data. It was developed to overcome the limitations of the PDB format and is now the official format used by the worldwide Protein Data Bank (wwPDB).
+
+CIF uses a dictionary-based approach with data categories and items, making it more flexible and extensible than PDB format. The format is self-describing and can handle much larger structures.
+
+The same structure converted to CIF format:
+
+```
+data_1HTM
+#
+_entry.id                                1HTM
+#
+_struct.title
+;HUMAN CARBONIC ANHYDRASE II IN COMPLEX WITH A SULFONAMIDE
+;
+#
+loop_
+_atom_site.group_PDB
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.label_atom_id
+_atom_site.label_comp_id
+_atom_site.label_asym_id
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.occupancy
+_atom_site.B_iso_or_equiv
+ATOM   1  N  N   ALA A   20.154  -6.351  -9.353  1.00 17.93
+ATOM   2  C  CA  ALA A   19.030  -6.508 -10.279  1.00 17.93
+ATOM   3  C  C   ALA A   18.885  -7.948 -10.721  1.00 17.93
+```
+
+## Key advantages of CIF over PDB
+
+The CIF format offers several important advantages over the legacy PDB format:
+
+**Flexibility and Extensibility:**
+
+- No fixed-width column restrictions
+- Can handle structures with more than 99,999 atoms
+- Supports chain IDs longer than single characters
+- Extensible dictionary allows new data types
+
+**Better Data Organization:**
+
+- Self-describing format with clear data categories
+- Hierarchical organization of information
+- Better handling of metadata and experimental details
+
+**Modern Standards:**
+
+- Official format of the wwPDB since 2014
+- Better support for large structures and complexes
+- Enhanced validation and error checking capabilities
+- Support for multiple models and ensemble structures
+
+## Programming examples
+
+### Python implementation using BioPython
+
+Basic conversion using BioPython:
+
+```python
+from Bio.PDB import PDBParser, MMCIFIO
+import warnings
+
+def pdb_to_cif(pdb_file, cif_file):
+    """Convert PDB file to CIF format using BioPython."""
+    # Suppress warnings for cleaner output
+    warnings.filterwarnings('ignore')
+
+    # Parse PDB file
+    parser = PDBParser(QUIET=True)
+    structure = parser.get_structure('structure', pdb_file)
+
+    # Write to CIF format
+    io = MMCIFIO()
+    io.set_structure(structure)
+    io.save(cif_file)
+
+    print(f"Converted {pdb_file} to {cif_file}")
+
+# Usage
+pdb_to_cif('input.pdb', 'output.cif')
+```
+
+### Batch conversion with validation
+
+```python
+from Bio.PDB import PDBParser, MMCIFIO, PDBList
+import os
+import glob
+
+def batch_pdb_to_cif(pdb_directory, output_directory):
+    """Convert all PDB files in a directory to CIF format."""
+    parser = PDBParser(QUIET=True)
+
+    # Create output directory if it doesn't exist
+    os.makedirs(output_directory, exist_ok=True)
+
+    # Find all PDB files
+    pdb_files = glob.glob(os.path.join(pdb_directory, "*.pdb"))
+
+    converted_count = 0
+    for pdb_file in pdb_files:
+        try:
+            # Parse structure
+            structure = parser.get_structure('temp', pdb_file)
+
+            # Generate output filename
+            base_name = os.path.splitext(os.path.basename(pdb_file))[0]
+            cif_file = os.path.join(output_directory, f"{base_name}.cif")
+
+            # Convert to CIF
+            io = MMCIFIO()
+            io.set_structure(structure)
+            io.save(cif_file)
+
+            converted_count += 1
+            print(f"✓ Converted {os.path.basename(pdb_file)}")
+
+        except Exception as e:
+            print(f"✗ Failed to convert {os.path.basename(pdb_file)}: {e}")
+
+    print(f"\nConversion complete: {converted_count} files converted")
+
+# Usage
+batch_pdb_to_cif('./pdb_files/', './cif_files/')
+```
+
+### Custom conversion with metadata preservation
+
+```python
+from Bio.PDB import PDBParser, MMCIFIO
+from Bio.PDB.mmcifio import MMCIFIO
+
+def advanced_pdb_to_cif(pdb_file, cif_file, preserve_remarks=True):
+    """Advanced PDB to CIF conversion with metadata preservation."""
+    parser = PDBParser(QUIET=True)
+    structure = parser.get_structure('structure', pdb_file)
+
+    # Read original PDB file to extract additional metadata
+    metadata = {}
+    with open(pdb_file, 'r') as f:
+        lines = f.readlines()
+
+    # Extract title and other metadata
+    title_lines = [line[10:].strip() for line in lines if line.startswith('TITLE')]
+    if title_lines:
+        metadata['title'] = ' '.join(title_lines)
+
+    # Extract header information
+    header_lines = [line for line in lines if line.startswith('HEADER')]
+    if header_lines:
+        header = header_lines[0]
+        metadata['classification'] = header[10:50].strip()
+        metadata['dep_date'] = header[50:59].strip()
+        metadata['pdb_id'] = header[62:66].strip()
+
+    # Convert to CIF
+    io = MMCIFIO()
+    io.set_structure(structure)
+    io.save(cif_file)
+
+    # Add custom metadata to CIF file if needed
+    if preserve_remarks and metadata:
+        print(f"Preserved metadata: {metadata}")
+
+    return metadata
+
+# Usage
+metadata = advanced_pdb_to_cif('input.pdb', 'output.cif', preserve_remarks=True)
+```
+
+### Command-line tools
+
+Using standard structural biology tools:
+
+```bash
+# Using MAXIT (from wwPDB)
+maxit -input input.pdb -output output.cif -o 1
+
+# Using ChimeraX (command-line)
+chimerax --nogui --cmd "open input.pdb; save output.cif format mmcif; exit"
+
+# Using pymol (with Python script)
+pymol -c -d "load input.pdb; save output.cif, format=cif; quit"
+
+# Using gemmi (lightweight crystallographic library)
+gemmi convert input.pdb output.cif
+```
+
+### Validation and quality checks
+
+```python
+from Bio.PDB import PDBParser, MMCIFIO
+from Bio.PDB.PDBExceptions import PDBConstructionWarning
+import warnings
+
+def validate_and_convert(pdb_file, cif_file):
+    """Convert PDB to CIF with validation checks."""
+
+    # Capture warnings for validation
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+
+        parser = PDBParser(QUIET=True)
+        structure = parser.get_structure('structure', pdb_file)
+
+        # Check for common issues
+        issues = []
+        for warning in w:
+            if issubclass(warning.category, PDBConstructionWarning):
+                issues.append(str(warning.message))
+
+        # Basic structure validation
+        atom_count = sum(1 for atom in structure.get_atoms())
+        chain_count = len(list(structure.get_chains()))
+
+        print(f"Structure validation:")
+        print(f"  - Atoms: {atom_count}")
+        print(f"  - Chains: {chain_count}")
+        print(f"  - Issues found: {len(issues)}")
+
+        if issues:
+            print("  - Warnings:")
+            for issue in issues[:5]:  # Show first 5 issues
+                print(f"    • {issue}")
+
+        # Convert to CIF
+        io = MMCIFIO()
+        io.set_structure(structure)
+        io.save(cif_file)
+
+        return {
+            'atom_count': atom_count,
+            'chain_count': chain_count,
+            'issues': issues
+        }
+
+# Usage
+validation_results = validate_and_convert('input.pdb', 'output.cif')
+```
+
+## Common use cases
+
+PDB to CIF conversion is essential for modern structural biology workflows:
+
+**Data Archival and Standardization:**
+
+- Converting legacy PDB files to modern mmCIF standard
+- Preparing structures for deposition to the Protein Data Bank
+- Standardizing structural databases and collections
+
+**Large Structure Analysis:**
+
+- Handling structures with >99,999 atoms (impossible in PDB format)
+- Processing large molecular complexes and assemblies
+- Working with cryo-EM structures and large membrane proteins
+
+**Software Compatibility:**
+
+- Using modern structural biology software that requires CIF input
+- Integrating with crystallographic and structural validation tools
+- Preparing data for structure refinement and analysis pipelines
+
+**Enhanced Metadata Handling:**
+
+- Preserving detailed experimental information
+- Including validation metrics and quality assessments
+- Supporting multiple conformations and ensemble structures
+
+The CIF format represents the future of structural biology data exchange, offering better flexibility, validation, and support for increasingly complex molecular structures.

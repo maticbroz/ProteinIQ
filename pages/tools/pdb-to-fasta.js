@@ -310,7 +310,7 @@ export default function PdbToFasta({ mdxSource, frontMatter }) {
       subtitle="Extract amino acid sequences from PDB protein structure files. Upload a PDB file or paste the structure data below."
     >
       <div className="flex flex-col gap-16">
-        <div class="flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
           <InputSection
             input={input}
             onInputChange={setInput}

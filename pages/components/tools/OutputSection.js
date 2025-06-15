@@ -1,4 +1,4 @@
-// OutputSection component (update your existing component)
+// Enhanced OutputSection component
 export default function OutputSection({
   output,
   outputFormat,
@@ -6,27 +6,39 @@ export default function OutputSection({
   onCopy,
   onDownload,
   downloadFilename,
+  isStyled = false,
+  styledContent = null,
+  className = '',
 }) {
   return (
-    <div className="space-y-6">
-      <label className="block text-sm font-semibold text-gray-700 mb-3">
+    <div className={`space-y-6 ${className}`}>
+      <label className="block font-semibold text-gray-700 mb-3">
         Output ({outputFormat} Format)
       </label>
 
-      {/* Output Text Area */}
+      {/* Output Area - Text or Styled */}
       <div className="w-full border border-gray-300 rounded-lg bg-gray-50 font-mono text-sm overflow-hidden">
-        <textarea
-          value={output}
-          readOnly
-          placeholder={placeholder}
-          className="p-6 w-full h-64 bg-transparent border-none resize-none"
-        />
+        {isStyled && styledContent ? (
+          // Styled div that looks like a textarea
+          <div className="p-6 w-full min-h-64 max-h-96 bg-gray-50 border-none resize-none overflow-y-auto whitespace-pre-wrap break-words">
+            {styledContent}
+          </div>
+        ) : (
+          // Regular textarea for plain text
+          <textarea
+            value={output}
+            readOnly
+            placeholder={placeholder}
+            className="p-6 w-full h-64 bg-gray-50 border-none resize-none focus:outline-none"
+          />
+        )}
+
         <div className="flex justify-between items-center border-t bg-gray-100 border-gray-200 px-4 py-2">
           <div className="flex gap-2">
             <button
               onClick={onCopy}
               title="Copy to Clipboard"
-              className="p-2 text-gray-700 hover:bg-gray-200 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 text-gray-700 hover:bg-gray-200 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               disabled={!output}
             >
               <svg
@@ -41,7 +53,7 @@ export default function OutputSection({
             <button
               onClick={onDownload}
               title="Download File"
-              className="p-2 text-gray-700 hover:bg-gray-200 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 text-gray-700 hover:bg-gray-200 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               disabled={!output}
             >
               <svg
@@ -54,7 +66,14 @@ export default function OutputSection({
               </svg>
             </button>
           </div>
-          <span className="text-gray-600 text-sm">{outputFormat}</span>
+          <div className="flex items-center gap-2">
+            {isStyled && (
+              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                Visual Mode
+              </span>
+            )}
+            <span className="text-gray-600 text-sm">{outputFormat}</span>
+          </div>
         </div>
       </div>
     </div>

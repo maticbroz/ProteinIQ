@@ -10,11 +10,11 @@ export default function BlogIndex({ posts }) {
     <Layout title="Blog - ProteinIQ">
       <div className="py-12">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-              Research & Insights
+          <div className="mb-12">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+              Research & insights
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl">
               Paper summaries, bioinformatics tutorials, and latest research
               insights
             </p>
@@ -43,7 +43,7 @@ export default function BlogIndex({ posts }) {
                         {post.title}
                       </h2>
 
-                      <p class="text-base/6">{post.subtitle}</p>
+                      <p className="text-base/6">{post.subtitle}</p>
                     </div>
 
                     <div className="flex items-center text-xs text-gray-500 mb-4 hidden">

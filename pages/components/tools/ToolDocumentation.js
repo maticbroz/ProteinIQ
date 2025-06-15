@@ -55,7 +55,7 @@ export default function ToolDocumentation({ mdxSource, frontMatter }) {
 
   return (
     <div className="my-16 pt-12">
-      <div className="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-3xl">
         {frontMatter?.title && (
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">

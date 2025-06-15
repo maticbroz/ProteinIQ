@@ -3,11 +3,12 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 
 // Optional bundle analyzer
-const withBundleAnalyzer = process.env.ANALYZE === 'true' 
-  ? (await import('@next/bundle-analyzer')).default({
-      enabled: true,
-    })
-  : (config) => config;
+const withBundleAnalyzer =
+  process.env.ANALYZE === 'true'
+    ? (await import('@next/bundle-analyzer')).default({
+        enabled: true,
+      })
+    : (config) => config;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -15,65 +16,35 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  
+
   // MDX support
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-  
+
   // Performance optimizations
   compiler: {
     // Remove console logs in production
-    removeConsole: process.env.NODE_ENV === 'production' ? {
-      exclude: ['error']
-    } : false,
+    removeConsole:
+      process.env.NODE_ENV === 'production'
+        ? {
+            exclude: ['error'],
+          }
+        : false,
   },
-  
-  // Image optimization
+
+  // Image optimization (removed caching TTL)
   images: {
     formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
-  
+
   // Experimental features for better performance
   experimental: {
     // optimizeCss: true, // Requires critters package - disabled for now
-    optimizePackageImports: [
-      'lucide-react',
-      'date-fns',
-    ],
+    optimizePackageImports: ['lucide-react', 'date-fns'],
   },
-  
-  // Headers for better caching and security
+
+  // Security headers only
   async headers() {
     return [
-      // Static asset caching
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/images/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/sitemap.xml',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=86400, s-maxage=86400',
-          },
-        ],
-      },
-      // Security headers for all pages
       {
         source: '/(.*)',
         headers: [
@@ -93,7 +64,7 @@ const nextConfig = {
       },
     ];
   },
-  
+
   // Redirects for SEO
   async redirects() {
     return [
@@ -105,13 +76,13 @@ const nextConfig = {
       // },
     ];
   },
-  
+
   // PoweredByHeader removal for security
   poweredByHeader: false,
-  
+
   // Compression
   compress: true,
-  
+
   // Output config for better performance
   output: 'standalone',
 };
